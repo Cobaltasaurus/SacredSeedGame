@@ -257,22 +257,19 @@ class CmdSheet(Command):
         integrity, knowledge, resistance, awareness, insight, navigation = self.caller.get_passive_skills()
         brawl, shoot, throw, melee, mount = self.caller.get_combat_skills()
         mana, luck = self.caller.get_spec_traits()
-
+        full_name, age, court, vocation, position, concept, height, eyes, hair = self.caller.get_bio()
 
         name = self.caller.name
 	name_disp = "{ Sheet: %s }" % name
 	hdr_length = 78-len(name_disp)
-        header = name_disp + '-'*hdr_length
-        attr_block ="{ATTRS}\n\t\t|gActive\t\tPassive\n|gPhysical|n\t\tSoma:    %s\t\tVim:    %s\n|gCombat|n\t\tFight:   %s\t\tDefend: %s\n|gAbstract|n\t\tPanache: %s\t\tWisdom: %s" % (soma, vim, fight, defend, panache, wisdom)
-        skill_block = "\n\n{SKILLS}\n|gActive\t\tPassive\t\tCombat|n\nInfluence:  %s\t\tIntegrity:  %s\t\tBrawl:      %s" \
-                      "\nResearch:   %s\t\tKnowledge:  %s\t\tShoot:      %s" \
-                      "\nCreate:     %s\t\tResistance: %s\t\tThrow:      %s" \
-                      "\nAthletics:  %s\t\tAwareness:  %s\t\tMelee:      %s" \
-                      "\nLarceny:    %s\t\tInsight:    %s\t\tMount:      %s" \
-                      "\nSail:       %s\t\tNavigation: %s\n\n" % (influence, integrity, brawl, research, knowledge, shoot, create, resistance, throw, athletics, awareness, melee, larceny, insight, mount, sail, navigation)
+        header = '|y' + name_disp + '-'*hdr_length + '|n'
+	bio_block = "|/Fullname:|_%s|_---Age:|_|_|_|_|_|_|444%s---Court:|_|_|_|444%s|/Vocation:|_%s---Position:|_|444%s---Concept:|_|444%s|/|444Height:-|_|_|444%s|444---Eyes:-|_|_|444%s|444---Hair:|_|_|_|_|444%s|/|/" % (full_name, age, court, vocation, position, concept, height, eyes, hair)
+        attr_block ="|550--------{{|_ATTRS|_}|/|=z |_ |_ |_ |_ |_ |_ |_ |_--Active |_ |_ |_ |_ ---Passive|/|=zPhysical |_ |_ |_ |_ |_ |_ |_ |_Soma: |_ |_%s|_ |_ |_ |_ |_ |_ |_Vim: |_ |_|444%s|/|=zCombat |_ |_ |_ |_ |_--Fight: |_ |444%s |_ |_ |_ |_ |_ |_ Defend:|_|444%s|/|=zAbstract |_ |_ |_ |_ |_ |_ |_ |_Panache:|_|444%s|_ |_ |_ |_ |_ |_ |_Wisdom:|_|444%s |\|\" % (soma, vim, fight, defend, panache, wisdom)
+        skill_block = "|550--------{{|_SKILLS|_}|/|=zActive |_ |_ |_ |_ |_--Passive |_ |_ |_ |_ --Combat|/Influence: |_|444%s |_ |_ |_ |_ |_Integrity: |_|444%s |_ |_ |_ |_ |_Brawl: |_ |_ |_|444%s|/Research: |_ |444%s |_ |_ |_ |_ |_Knowledge: |_|444%s|_ |_ |_ |_ |_ Shoot: |_ |_ |_|444%s|/Create: |_ |_ |444%s |_ |_ |_ |_ |_Resistance:|_|444%s |_ |_ |_ |_ |_Throw: |_ |_ |_|444%s|/Athletics: |_|444%s |_ |_ |_ |_ |_Awareness: |_|444%s |_ |_ |_ |_ |_Melee: |_ |_ |_|444%s|/Larceny: |_ |_|444%s |_ |_ |_ |_ |_Insight: |_ |_|444%s |_ |_ |_ |_ |_Mount: |_ |_ |_|444%s|/Sail: |_ |_ |_ |444%s |_ |_ |_ |_ |_Navigation:|_|444%s|/|/|/" % (influence, integrity, brawl, research, knowledge, shoot, create, resistance, throw, athletics, awareness, melee, larceny, insight, mount, sail, navigation)
 
-        spec_block = "|mMana|n: %s\t\t|yLuck|n: %s" % (mana, luck)
+        spec_block = "|355Mana|333:|_10 |_ |_ |_ |_ |_ |_ |_ |_|355Luck|333:|_5|/|550------------------------------------------------------------------------------" % (mana, luck)
         self.caller.msg(header)
+	self.caller.msg(bio_block)
 	self.caller.msg(attr_block)
 	self.caller.msg(skill_block)
 	self.caller.msg(spec_block)
