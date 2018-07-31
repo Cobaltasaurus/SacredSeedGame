@@ -34,6 +34,9 @@ class Character(DefaultCharacter):
     def at_object_creation(self):
 
         # default attributes set when the character is first created.
+        
+        # bio stats
+        self.db.bio={'Full_name': ' ', 'Age': ' ', 'Court': ' ', 'Vocation': ' ', 'Position': ' ', 'Concept': ' ', 'Height': 0, 'Eyes': ' ', 'Hair': ' '}
 
         # all players start with 1 in their attributes
         # active attributes
@@ -49,7 +52,6 @@ class Character(DefaultCharacter):
         #passive skills
         self.db.passive_skill = {'Integrity': 0, 'Knowledge': 0, 'Resistance': 0, 'Awareness': 0, 'Insight': 0, 'Navigation': 0}
 
-
         #combat skills
         self.db.combat_skill = {'Brawl': 0, 'Shoot': 0, 'Throw': 0, 'Melee': 0, 'Mount': 0}
 
@@ -57,9 +59,13 @@ class Character(DefaultCharacter):
         #traits are things that can be spent
         #special things players start with 5 luck 10 mana
         self.db.special_trait= {'Luck': 5, 'Mana': 10}
+        
+    def get_bio(self):
+        """a simple method to get the bio attrs as a tuple"""
+        return self.db.bio['Full_name'], self.db.bio['Age'], self.db.bio['Court'], self.db.bio['Vocation'], self.db.bio['Position'], self.db.bio['Concept'], self.db.bio['Height'], self.db.bio['Eyes'], self.db.bio['Hair']
 
     def get_active_attr(self):
-        """simple method to get active attris as a tuple (some, fight, panache"""
+        """simple method to get active attris as a tuple (some, fight, panache)"""
 
         return self.db.active_attr['Soma'], self.db.active_attr['Fight'], self.db.active_attr['Panache']
 
